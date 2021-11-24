@@ -1,0 +1,33 @@
+Rules:
+	Birth when (== 3)
+	Live  when (== 3)
+    Live  when (== 1)
+	Live  when (< 50)
+	Live  when (> 50)
+
+Grid:
+	Cell(2,2)
+	Cell(1,1)
+	Cell(1,2)
+	Cell(2,1)
+	
+	Cell(3,4)
+	Cell(2,4)
+	Cell(1,4)
+	Cell(0,4)
+	
+	Cell(4,4)
+	
+	Cell(4,3)
+	Cell(4,3)
+	Cell(4,2)
+	Cell(4,1)
+	Cell(4,0)
+	
+	Cell(51,70)
+	Cell(52,70)
+	Cell(51,71)
+	Cell(52,71)
+	
+	Cell(70000006,50000000)
+	Cell(700005,50001)
