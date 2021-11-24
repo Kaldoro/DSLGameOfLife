@@ -1,13 +1,13 @@
 Rules:
 	Birth when (== 3)
-	Live  when (== 2)
-	Live  when (== 3)
+	Live  when [2..3]
 
 Grid:
 	Cell(2,2)
 	Cell(1,1)
 	Cell(1,2)
 	Cell(2,1)
+	Glider(10,10)
 	
 	Cell(3,4)
 	Cell(2,4)

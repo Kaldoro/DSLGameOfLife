@@ -30,11 +30,10 @@ class JavaGenerator {
                 «FOR p : root.rules»
 	                «IF (p.cond.value < 8 || p.cond.sign == '<' || p.cond.sign == '<=')»
 		                «IF p.option == "Birth"»
-						if ((!gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
-		                	survivingCells.add(new Point(i-1,j-1));
-		                }
-		                «ENDIF» 
-		                «IF p.option == "Live"»
+		                if ((!gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
+						survivingCells.add(new Point(i-1,j-1));
+						}
+		                «ELSEIF p.option == "Live"»
 		                if ((gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
 		                	survivingCells.add(new Point(i-1,j-1));
 		                }

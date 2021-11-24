@@ -7,6 +7,7 @@ import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
 import gameoflife.gofDSL.GridElem
 import gameoflife.gofDSL.Model
+import gameoflife.gofDSL.Rules
 
 /**
  * This class contains custom validation rules. 
@@ -14,6 +15,7 @@ import gameoflife.gofDSL.Model
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class GofDSLValidator extends AbstractGofDSLValidator {
+	val boolean[] mentioned = #[false,false,false, false,false,false ,false,false,false]
 	
 	@Check
 	def checkNeigbourAmount(Condition cond) {
@@ -26,27 +28,28 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 	}
 	
 	@Check
-	def checkOutOfBounds(GridElem cell) {
-		if(cell.x > 75 || cell.y > 50) {
+	def checkOutOfBounds(GridElem gridElem) {
+		if(gridElem.x > 75 || gridElem.y > 50) {
 			warning('Out of bounds line will be ignored', null)
 		}
 	}
 	
+	@Check 
+	def checkAllMentioned(Rules rule) {
+		//rule.rules.forEach[element, index | if (mentioned[element.cond.value] == false) {}]
+	}
+	
 	@Check
 	def checkNotSameCellTwice(Model mod) {
-		//val myList = #[];
-		//mod.rules.forEach[ element, index | if (true) { myList += element } else {warning('duplicate',null)}]
-		//myList;
+		//val boolean[] myList = newBooleanArrayOfSize(400);
+		//mod.startingGrid.forEach[ element, index | if (myList[element.x] == false) { myList[element.y] = true } else {warning('duplicate',null)}]
 	}
 	
 	@Check
 	def checkEmptyGrid(Model mod) {
-		if (mod.startingGrid === null || mod.startingGrid == []) {
+		if (mod.startingGrid.isEmpty) {
 			info('Empty grid', null);
 		}
 	}
-	
-	
-	
 	
 }
