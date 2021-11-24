@@ -5,7 +5,7 @@ package gameoflife.validation
 
 import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
-import gameoflife.gofDSL.Cell
+import gameoflife.gofDSL.GridElem
 
 /**
  * This class contains custom validation rules. 
@@ -25,7 +25,7 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 	}
 	
 	@Check
-	def checkOutOfBounds(Cell cell) {
+	def checkOutOfBounds(GridElem cell) {
 		if(cell.x > 75 || cell.y > 50) {
 			warning('Out of bounds line will be ignored', null)
 		}
