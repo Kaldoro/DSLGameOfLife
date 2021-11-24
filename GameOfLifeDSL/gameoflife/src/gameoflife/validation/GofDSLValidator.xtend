@@ -26,7 +26,7 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 	}
 	
 	@Check
-	def checkOutOfBounds(Cell cell) {
+	def checkOutOfBounds(GridElem cell) {
 		if(cell.x > 75 || cell.y > 50) {
 			warning('Out of bounds line will be ignored', null)
 		}
