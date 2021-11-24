@@ -7,4 +7,4 @@
 .antlr-generator-*-patch.jar
 # Below is only needed when Git repo is inside the Eclipse workspace
 .metadata/   
-runtime-EclipseXtext/.metadata/
+runtime-EclipseXtext/GoLruntime.zip_expanded/
