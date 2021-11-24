@@ -67,6 +67,14 @@ class JavaGenerator {
 			gameBoard.addPoint(x+1, y+2);
 			gameBoard.addPoint(x+2, y+2);
 		}
+		else if (shape == "Toad"){
+			gameBoard.addPoint(x+1, y);
+			gameBoard.addPoint(x+2, y);
+			gameBoard.addPoint(x+3, y);
+			gameBoard.addPoint(x, y+1);
+			gameBoard.addPoint(x+1, y+1);
+			gameBoard.addPoint(x+2, y+1);
+		}
 	}
 }
 	'''
