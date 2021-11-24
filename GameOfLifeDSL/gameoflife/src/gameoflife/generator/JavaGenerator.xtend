@@ -28,18 +28,18 @@ class JavaGenerator {
 
 				// GENERATED CONTENT
                 «FOR p : root.rules»
-                «IF (p.cond.value < 8 || p.cond.sign == '<' || p.cond.sign == '<=')»
-                «IF p.option == "Birth"»
-                if ((!gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
-                	survivingCells.add(new Point(i-1,j-1));
-                }
-                «ENDIF» 
-                «IF p.option == "Live"»
-                if ((gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
-                	survivingCells.add(new Point(i-1,j-1));
-                }
-                «ENDIF»
-   				«ENDIF»
+	                «IF (p.cond.value < 8 || p.cond.sign == '<' || p.cond.sign == '<=')»
+		                «IF p.option == "Birth"»
+						if ((!gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
+		                	survivingCells.add(new Point(i-1,j-1));
+		                }
+		                «ENDIF» 
+		                «IF p.option == "Live"»
+		                if ((gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
+		                	survivingCells.add(new Point(i-1,j-1));
+		                }
+		                «ENDIF»
+	   				«ENDIF»
                 «ENDFOR»
 				//END GENERATED CONTENT
 			}
@@ -47,12 +47,26 @@ class JavaGenerator {
 	}
 	public static void initializeGrid(GameBoard gameBoard) {
 	    // GENERATED CONTENT 
-		«FOR p : root.startingGrid»
-		«IF p.x < 76 && p.y < 51»
-		gameBoard.addPoint(«p.x»,«p.y»);
+		«FOR elem : root.startingGrid»
+		«IF elem.x < 76 && elem.y < 51»
+			«IF elem.content == 'Glider' || elem.content == 'Toad'»
+				insertShape(gameBoard, "«elem.content»", «elem.x», «elem.y»);
+			«ELSE»
+				gameBoard.addPoint(«elem.x»,«elem.y»);			
+			«ENDIF»
 		«ENDIF»
 		«ENDFOR»
 		// END GENERATED CONTENT
+	}
+	
+	private static void insertShape(GameBoard gameBoard, String shape, int x, int y){
+		if (shape == "Glider"){
+			gameBoard.addPoint(x+1, y);
+			gameBoard.addPoint(x+2, y+1);
+			gameBoard.addPoint(x, y+2);
+			gameBoard.addPoint(x+1, y+2);
+			gameBoard.addPoint(x+2, y+2);
+		}
 	}
 }
 	'''

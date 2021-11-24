@@ -5,7 +5,7 @@ package gameoflife.validation
 
 import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
-import gameoflife.gofDSL.Cell
+import gameoflife.gofDSL.GridElem
 import gameoflife.gofDSL.Model
 
 /**

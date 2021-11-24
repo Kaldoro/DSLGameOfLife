@@ -1,10 +1,10 @@
 Rules:
-	Birth when (> 0)
-	Live  when (== 3)
-    Live  when (== 1)
-	Live  when (< 50)
+	Birth when (== 3)
+	Live  when (== 2)
+    Live  when (== 3)
+	//Live  when (< 50)
 	Live  when (> 50)
 
 Grid:
-	Glider(0,0)
-	Cell(2,3)
+	Glider(10,5)
+	Cell(40,40)
