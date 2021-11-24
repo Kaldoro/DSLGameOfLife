@@ -7,7 +7,7 @@ import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
 import gameoflife.gofDSL.GridElem
 import gameoflife.gofDSL.Model
-import gameoflife.gofDSL.Rules
+import gameoflife.gofDSL.Rule
 
 /**
  * This class contains custom validation rules. 
@@ -35,8 +35,10 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 	}
 	
 	@Check 
-	def checkAllMentioned(Rules rule) {
+	def checkAllMentioned(Rule rule) {
 		//rule.rules.forEach[element, index | if (mentioned[element.cond.value] == false) {}]
+		val int temp = rule.cond.value
+		//if (mentioned.get(temp) == false) {mentioned.set(temp, true) } else {warning('value mentioned twice', null)}
 	}
 	
 	@Check

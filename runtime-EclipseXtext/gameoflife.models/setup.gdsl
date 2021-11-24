@@ -1,6 +1,7 @@
 Rules:
 	Birth when (== 3)
-	Live  when [2..3]
+	Live  when (== 2)
+	
 
 Grid:
 	Cell(2,2)
