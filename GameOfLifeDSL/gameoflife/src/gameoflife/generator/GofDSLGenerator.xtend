@@ -22,7 +22,6 @@ class GofDSLGenerator extends AbstractGenerator {
    val root = resource.allContents.head as Model; 
    if (root !== null) { 
 			fsa.generateFile('../../GoLruntime.zip_expanded/GoLruntime/short.life/src/GameOfLife/RulesOfLife.java', JavaGenerator.toRulesFile(root));
-			//fsa.generateFile('GameOfLife/src/GameOfLife/GameOfLife.java' , JavaGenerator.toGameFile(root));
        } 
    } 
 }

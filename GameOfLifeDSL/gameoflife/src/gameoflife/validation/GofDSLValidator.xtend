@@ -6,6 +6,7 @@ package gameoflife.validation
 import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
 import gameoflife.gofDSL.Cell
+import gameoflife.gofDSL.Model
 
 /**
  * This class contains custom validation rules. 
@@ -31,15 +32,21 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 		}
 	}
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					GofDSLPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	@Check
+	def checkNotSameCellTwice(Model mod) {
+		//val myList = #[];
+		//mod.rules.forEach[ element, index | if (true) { myList += element } else {warning('duplicate',null)}]
+		//myList;
+	}
+	
+	@Check
+	def checkEmptyGrid(Model mod) {
+		if (mod.startingGrid === null || mod.startingGrid == []) {
+			info('Empty grid', null);
+		}
+	}
+	
+	
+	
 	
 }
