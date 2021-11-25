@@ -7,7 +7,9 @@ import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
 import gameoflife.gofDSL.GridElem
 import gameoflife.gofDSL.Model
-import gameoflife.gofDSL.Rule
+import gameoflife.gofDSL.Rules
+import java.util.HashMap; 
+import java.util.ArrayList;
 
 /**
  * This class contains custom validation rules. 
@@ -15,7 +17,6 @@ import gameoflife.gofDSL.Rule
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class GofDSLValidator extends AbstractGofDSLValidator {
-	val boolean[] mentioned = #[false,false,false, false,false,false ,false,false,false]
 	
 	@Check
 	def checkNeigbourAmount(Condition cond) {
@@ -35,16 +36,75 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 	}
 	
 	@Check 
-	def checkAllMentioned(Rule rule) {
-		//rule.rules.forEach[element, index | if (mentioned[element.cond.value] == false) {}]
-		val int temp = rule.cond.value
-		//if (mentioned.get(temp) == false) {mentioned.set(temp, true) } else {warning('value mentioned twice', null)}
+	def checkAllMentioned(Rules ruleList) {
+		var mentioned = new ArrayList<Boolean>();
+		for(var i = 0; i < 9; i++) {
+			mentioned.add(false);
+		}
+		
+		var rules = ruleList.rules;
+		if(rules !== null && !rules.isEmpty) {
+			for(elem : rules) {
+				var index = elem.cond.value
+				var sign = elem.cond.sign
+				if(sign == '==') {
+					if(index < 9 && mentioned.get(index) == false) {mentioned.set(index, true)}
+				}
+				else if(sign == '>'  && index < 8) {
+					for(var i=index+1; i < 9; i++) {
+						mentioned.set(i, true)
+					}
+				}
+				else if(sign == '>='  && index < 8) {
+					for(var i=index; i < 9; i++) {
+						mentioned.set(i, true)
+					}
+				}
+				else if(sign == '<' ) {
+					var temp = index;
+					if(index > 9) { temp = 9 }
+					for(var i=temp-1; i >= 0; i--) {
+						mentioned.set(i, true)
+					}
+				}
+				else if(sign == '<=' ) {
+					var temp = index;
+					if(index > 9) { temp = 9 }
+					for(var i=temp; i >= 0; i--) {
+						mentioned.set(i, true)
+					}
+				}
+			}
+			var output = "Values not mentioned in any rule: ";
+			var any = false;
+			for(var i=0; i < 9; i++) {
+				if(mentioned.get(i) == false) {
+					any = true
+					output += i.toString() + " , "
+				}
+			}
+			if(any) {
+				info(output + "default will be death", ruleList, null)
+			}
+		}
 	}
 	
 	@Check
 	def checkNotSameCellTwice(Model mod) {
-		//val boolean[] myList = newBooleanArrayOfSize(400);
-		//mod.startingGrid.forEach[ element, index | if (myList[element.x] == false) { myList[element.y] = true } else {warning('duplicate',null)}]
+		var grid = mod.startingGrid;
+		if(!grid.isEmpty) {
+			var map = new HashMap<String, Boolean>();
+			for(elem : grid) {
+				var line = elem.x.toString() + "," + elem.y.toString()
+				//warning(line, elem, null)
+				if (map.get(line) == true) {
+					warning('Setting the same cell twice', elem, null)
+				} 
+				else {
+					map.put(line, true)
+				};
+			}
+		}
 	}
 	
 	@Check

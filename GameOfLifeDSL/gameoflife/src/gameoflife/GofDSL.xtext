@@ -6,8 +6,11 @@ generate gofDSL "http://www.GofDSL.gameoflife"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 			
 Model:
-	('Rules:' rules+=Rule+)?
-	('Grid:' startingGrid+=GridElem+)?
+	(ruleList = Rules)?
+	('Grid:' startingGrid+=GridElem*)?
+;
+Rules:
+	'Rules:' rules+=Rule*
 ;
 GridElem:
 	content=Content '(' x = INT ',' y = INT ')' 
@@ -25,7 +28,7 @@ Rule:
 ;
 
 Option:
-	Birthing | Surviving
+	Birthing | Surviving | Death
 ;
 
 Birthing: 
@@ -33,6 +36,9 @@ Birthing:
 ;
 Surviving:
 	'Live'
+;
+Death:
+	'Die'
 ;
 
 Condition:

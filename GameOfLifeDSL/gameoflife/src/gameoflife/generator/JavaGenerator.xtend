@@ -1,6 +1,7 @@
 package gameoflife.generator
 
 import gameoflife.gofDSL.Model
+import java.util.ArrayList
 
 class JavaGenerator {
 	def static toRulesFile(Model root) ''' 
@@ -27,7 +28,7 @@ class JavaGenerator {
 				/* only code for surviving cells, so no rule if result is dead cell */
 
 				// GENERATED CONTENT
-                «FOR p : root.rules»
+                «FOR p : root.ruleList.rules»
 	                «IF (p.cond.value < 8 || p.cond.sign == '<' || p.cond.sign == '<=')»
 		                «IF p.option == "Birth"»
 		                if ((!gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
@@ -36,6 +37,10 @@ class JavaGenerator {
 		                «ELSEIF p.option == "Live"»
 		                if ((gameBoard[i][j]) && (surrounding «p.cond.sign» «p.cond.value»)){
 		                	survivingCells.add(new Point(i-1,j-1));
+		                }
+		                «ELSEIF p.option == "Die"»
+		                if (surrounding «p.cond.sign» «p.cond.value») {
+		                	survivingCells.remove(new Point(i-1,j-1));
 		                }
 		                «ENDIF»
 	   				«ENDIF»
@@ -77,4 +82,7 @@ class JavaGenerator {
 	}
 }
 	'''
+	def static void doSomething() {
+		var al = new ArrayList<Integer>();
+	}
 }
