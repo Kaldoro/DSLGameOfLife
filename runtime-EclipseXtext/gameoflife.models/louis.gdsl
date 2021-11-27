@@ -6,5 +6,9 @@ Rules:
 	Live  when (> 50)
 
 Grid:
-	Glider(10,5)
-	Cell(40,40)
+	Toad(1,1)
+	.O.
+	..O
+	O.O.O
+	O.OO
+	(1,1)

@@ -16,8 +16,24 @@ GridElem:
 	content=Content '(' x = INT ',' y = INT ')' 
 ;
 Content:
-	'Cell' | Shape
+	'Cell' | Shape | Pattern
 ;
+
+Pattern:
+	PatternData += PatternLine+
+;
+
+PatternLine:
+	('.' | 'O')+
+;
+
+//terminal PATTERNCOMMENT:
+//	'!' (ID)* NEWLINE
+//;
+//
+//terminal NEWLINE: // https://stackoverflow.com/questions/13992686/matching-a-text-in-line-by-line-file-with-xtext
+//    '\r'? '\n'
+//;
 
 Shape:
 	'Glider' | 'Toad'
