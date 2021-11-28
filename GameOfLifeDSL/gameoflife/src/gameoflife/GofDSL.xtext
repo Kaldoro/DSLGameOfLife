@@ -16,11 +16,28 @@ GridElem:
 	content=Content '(' x = INT ',' y = INT ')' 
 ;
 Content:
-	'Cell' | Shape
+	cell = 'Cell' | shape = Shape | pattern = Pattern
+;
+
+Pattern:
+	'Pattern:' PatternData += PatternLine+
+;
+
+PatternLine:
+	'Line' ('.' | '#')* // Allow a line with no defined cells because it is used in some patterns (period 22 glider gun)
+;
+
+//terminal PATTERNCOMMENT:
+//	'!' (ID)* NEWLINE
+//;
+//
+
+terminal NEWLINE: // https://stackoverflow.com/questions/13992686/matching-a-text-in-line-by-line-file-with-xtext
+    '\r'? '\n'
 ;
 
 Shape:
-	'Glider' | 'Toad'
+	name = ('Glider' | 'Toad')
 ;
 	
 Rule:
