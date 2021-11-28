@@ -3,6 +3,8 @@ Authors: Danny van Veltum, Louis Machiels
 
 Open the DSLGameOfLife directory as the Eclipse workspace.
 
+Add the gameoflife.models directory to the root of the runtime-Eclipse generated project.
+
 We changed the GameOfLife.java file so please use ours.
 
 ## Language:
