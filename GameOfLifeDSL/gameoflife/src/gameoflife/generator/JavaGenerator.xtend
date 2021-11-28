@@ -53,10 +53,16 @@ class JavaGenerator {
 	    // GENERATED CONTENT 
 		«FOR elem : root.startingGrid»
 		«IF elem.x < 76 && elem.y < 51»
-			«IF elem.content == 'Glider' || elem.content == 'Toad'»
-				insertShape(gameBoard, "«elem.content»", «elem.x», «elem.y»);
-			«ELSE»
-				gameBoard.addPoint(«elem.x»,«elem.y»);			
+			«IF elem.content.shape !== null»
+				insertShape(gameBoard, "«elem.content.shape.name»", «elem.x», «elem.y»);
+			«ELSEIF elem.content.cell !== null»
+				gameBoard.addPoint(«elem.x»,«elem.y»);
+			«ELSEIF elem.content.pattern !== null»
+				«var offset = 0»
+				«FOR pline : elem.content.pattern.patternData»
+					insertPattern(gameBoard, "«pline»", «elem.x», «elem.y + offset»);
+					«{offset += 1; ""}» ««« not ideal but https://stackoverflow.com/a/19176838/9139701
+				«ENDFOR»
 			«ENDIF»
 		«ENDIF»
 		«ENDFOR»
@@ -80,6 +86,27 @@ class JavaGenerator {
 			gameBoard.addPoint(x+2, y+1);
 		}
 	}
+	
+    private static void insertPattern(GameBoard gameBoard, String pattern, int x, int y){
+        int minDot = pattern.indexOf('.');
+        int minHash = pattern.indexOf('#');
+        int indexStart;
+        if(minDot == -1){
+            if(minHash == -1) {return;}
+            indexStart = minHash;
+        }
+        else if(minHash == -1) {return;} // if there are no # in the pattern, no cells will get filled so return.
+        else {
+            indexStart = Math.min(minDot, minHash);
+        }
+        String patternData = pattern.substring(indexStart);
+        
+        for(int i = 0; i < patternData.length(); i++) {
+        	if (patternData.charAt(i) == '#') {
+        		gameBoard.addPoint(x+i, y);
+        	}
+        }
+    }
 }
 	'''
 	def static void doSomething() {
