@@ -6,10 +6,10 @@ package gameoflife.validation
 import gameoflife.gofDSL.Condition
 import org.eclipse.xtext.validation.Check
 import gameoflife.gofDSL.GridElem
-import gameoflife.gofDSL.Model
 import gameoflife.gofDSL.Rules
 import java.util.HashMap; 
 import java.util.ArrayList;
+import gameoflife.gofDSL.Model
 
 /**
  * This class contains custom validation rules. 
@@ -17,17 +17,19 @@ import java.util.ArrayList;
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class GofDSLValidator extends AbstractGofDSLValidator {
-	
 	@Check
 	def checkNeigbourAmount(Condition cond) {
+		//If you have a condition like for example (>= 50) it will give warning that it will be ignored
 		if(cond.value > 8 && cond.sign != '<' && cond.sign != '<=') {
 			warning('Amount of neighbours is invalid and will be ignored',null)
 		}
+		//If you have a condition like (< = 50) it will give an info that it is logically equivalent to (<= 8)
 		if(cond.value > 8 && (cond.sign == '<' || cond.sign == '<=')) {
 			info('Logically equivalent to the condition (<= 8)', null)
 		}
 	}
 	
+	//Will check when a cell is out of bounds based on the initial size the grid has for us atleast
 	@Check
 	def checkOutOfBounds(GridElem gridElem) {
 		if(gridElem.x > 75 || gridElem.y > 50) {
@@ -35,6 +37,7 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 		}
 	}
 	
+	//Check whether a value is given for each possible amount of neighbours otherwise it gives info with the missing numbers
 	@Check 
 	def checkAllMentioned(Rules ruleList) {
 		var mentioned = new ArrayList<Boolean>();
@@ -89,6 +92,7 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 		}
 	}
 	
+	//Does not work ); 
 	@Check
 	def checkNotSameCellTwice(Model mod) {
 		var grid = mod.startingGrid;
@@ -96,7 +100,6 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 			var map = new HashMap<String, Boolean>();
 			for(elem : grid) {
 				var line = elem.x.toString() + "," + elem.y.toString()
-				//warning(line, elem, null)
 				if (map.get(line) == true) {
 					warning('Setting the same cell twice', elem, null)
 				} 
@@ -107,6 +110,7 @@ class GofDSLValidator extends AbstractGofDSLValidator {
 		}
 	}
 	
+	//Gives info that the grid is empty if it is
 	@Check
 	def checkEmptyGrid(Model mod) {
 		if (mod.startingGrid.isEmpty) {

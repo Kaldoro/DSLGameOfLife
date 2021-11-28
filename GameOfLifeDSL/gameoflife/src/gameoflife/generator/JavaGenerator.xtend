@@ -109,7 +109,4 @@ class JavaGenerator {
     }
 }
 	'''
-	def static void doSomething() {
-		var al = new ArrayList<Integer>();
-	}
 }

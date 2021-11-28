@@ -27,15 +27,6 @@ PatternLine:
 	'Line' ('.' | '#')* // Allow a line with no defined cells because it is used in some patterns (period 22 glider gun)
 ;
 
-//terminal PATTERNCOMMENT:
-//	'!' (ID)* NEWLINE
-//;
-//
-
-terminal NEWLINE: // https://stackoverflow.com/questions/13992686/matching-a-text-in-line-by-line-file-with-xtext
-    '\r'? '\n'
-;
-
 Shape:
 	name = ('Glider' | 'Toad')
 ;
